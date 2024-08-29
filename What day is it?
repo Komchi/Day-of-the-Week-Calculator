@@ -1,0 +1,35 @@
+# Checking if the year is a leap year
+def is_leap_year(year):
+    if year % 4 == 0 and year % 100 != 0 or year % 400 == 0:
+        return True
+    else:
+        return False
+
+# Checking how many days are in a given month
+def days_in_month(year, month):
+    days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    if is_leap_year(year) and month == 2:
+        return 29
+    elif month > 12 or month < 1:
+        return None
+    else:
+        return days[month - 1]
+
+# Calculating the day of the week for a given date using Zeller's formula
+def day_of_week(year, month, day):
+    if month < 3:
+        month += 12
+        year -= 1
+    
+    k = year % 100
+    j = year // 100
+    
+    f = day + ((13 * (month + 1)) // 5) + k + (k // 4) + (j // 4) - (2 * j)
+    day_of_week = f % 7
+    
+    week_days = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+    
+    return week_days[day_of_week]
+
+# Testing the function
+print(day_of_week(2000, 12, 31))  # Should return "Sunday"
